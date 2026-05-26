@@ -42,11 +42,10 @@ st.bar_chart({
     if "grid" in c or "game" in c:
         return '''
 st.write("### Game Grid")
-
 for row in range(3):
     cols = st.columns(3)
-    for col in cols:
-        col.button(" ", key=f"cell_{row}_{cols.index(col)}")
+    for col_index, col in enumerate(cols):
+        col.button(" ", key=f"cell_{row}_{col_index}")
 '''
 
     if "sidebar" in c:

@@ -1,10 +1,26 @@
 [
     {
-        "page": "GameScreen",
+        "page": "Game Board",
         "components": [
-            "Tic Tac Toe Grid",
-            "Game Status Display",
-            "New Game Button"
+            "Game Grid",
+            "Player Turn Indicator",
+            "Score Display"
+        ]
+    },
+    {
+        "page": "Scoreboard",
+        "components": [
+            "Score Table",
+            "Player Rankings",
+            "Game History"
+        ]
+    },
+    {
+        "page": "Multiplayer Lobby",
+        "components": [
+            "Available Games List",
+            "Join Game Button",
+            "Create Game Button"
         ]
     }
 ]

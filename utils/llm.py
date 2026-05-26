@@ -1,9 +1,14 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
-
+import os
 from dotenv import load_dotenv
-load_dotenv()
-model =ChatGoogleGenerativeAI(model ="gemini-2.5-flash" )
+from langchain_groq import ChatGroq
 
-def generate_response(prompt):
+load_dotenv()
+
+model = ChatGroq(
+    groq_api_key=os.getenv("GROQ_API_KEY"),
+    model_name="llama-3.3-70b-versatile"
+)
+
+def generate_response(prompt: str):
     response = model.invoke(prompt)
-    return response.text
+    return response.content

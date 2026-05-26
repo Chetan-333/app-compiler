@@ -10,25 +10,34 @@ class Players(Base):
     username = Column(String)
 
 
-class Games(Base):
-    __tablename__ = 'games'
+class Game_boards(Base):
+    __tablename__ = 'game_boards'
 
     id = Column(Integer)
-    player_x_id = Column(Integer)
-    player_o_id = Column(Integer)
-    current_turn_player_id = Column(Integer)
-    status = Column(String)
-    winner_id = Column(Integer)
+    player1_id = Column(Integer)
+    player2_id = Column(Integer)
     board_state = Column(String)
 
 
-class Moves(Base):
-    __tablename__ = 'moves'
+class Scores(Base):
+    __tablename__ = 'scores'
 
     id = Column(Integer)
-    game_id = Column(Integer)
     player_id = Column(Integer)
-    position = Column(Integer)
-    symbol = Column(String)
-    move_number = Column(Integer)
+    score = Column(Integer)
+
+
+class Multiplayer_lobbies(Base):
+    __tablename__ = 'multiplayer_lobbies'
+
+    id = Column(Integer)
+    lobby_name = Column(String)
+
+
+class Player_lobby_joins(Base):
+    __tablename__ = 'player_lobby_joins'
+
+    id = Column(Integer)
+    player_id = Column(Integer)
+    lobby_id = Column(Integer)
 
