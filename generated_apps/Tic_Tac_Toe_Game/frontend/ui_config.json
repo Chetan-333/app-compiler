@@ -1,0 +1,18 @@
+[
+    {
+        "page": "Home Screen",
+        "components": [
+            "Game Title Display",
+            "Start Game Button"
+        ]
+    },
+    {
+        "page": "Game Screen",
+        "components": [
+            "Game Board",
+            "Current Turn Indicator",
+            "Game Status Message",
+            "Reset Game Button"
+        ]
+    }
+]

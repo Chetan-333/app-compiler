@@ -56,13 +56,11 @@ def generate_application(
         auth_code
     )
     # Generate Streamlit app
-    streamlit_code = generate_streamlit_app(
-    intent=intent,
-    ui_schema=ui_schema
-)
+    streamlit_app_code = generate_streamlit_app(intent, ui_schema)
+
     write_file(
     f"{base_path}/app.py",
-    streamlit_code
+    streamlit_app_code
 )
     return {
         "status": "success",

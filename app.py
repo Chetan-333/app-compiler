@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-start_time = time.time()
+
 
 from agents.intent_agent import extract_intent
 from agents.design_agent import generate_design
@@ -15,6 +15,8 @@ from agents.schema_agent import (
 
 from agents.validator_agent import validate_system
 from agents.runtime_agent import generate_application
+
+
 
 st.set_page_config(page_title="AI App Compiler", layout="wide")
 
@@ -158,6 +160,7 @@ assumptions = [
 
 
 if generate:
+    start_time = time.time()
 
     if not user_input.strip():
         st.warning("Please enter a valid application description.")
@@ -268,16 +271,32 @@ if generate:
 
         with tab5:
             st.success(f"Generated app path: {generated['path']}")
-            st.code(f"streamlit run {generated['path']}/app.py")
-            st.subheader("Execution Metrics")
 
-            st.json({
-    "latency_seconds": latency,
-    "repair_attempts": len(repair_log),
-    "validation_status": validation["status"]
-})
+            run_command = f"streamlit run {generated['path']}/app.py"
+            st.info("To run the generated app locally, copy this command in terminal:")
+            st.code(run_command, language="bash")
+
+            generated_app_file = f"{generated['path']}/app.py"
+
+            try:
+                with open(generated_app_file, "r", encoding="utf-8") as file:
+                    app_code = file.read()
+
+                st.subheader("Generated App Code Preview")
+                st.code(app_code, language="python")
+
+            except FileNotFoundError:
+                st.warning("Generated app.py file not found.")
+
     except Exception as e:
-        st.error("Generation failed. API quota may be exhausted or output validation failed.")
-        st.code(str(e))
+                st.error(f"Error reading generated app file: {e}")
+
+            
+                st.subheader("Execution Metrics")
+                st.json({
+                "latency_seconds": latency,
+                "repair_attempts": len(repair_log),
+                "validation_status": validation["status"]
+            })
 
        
