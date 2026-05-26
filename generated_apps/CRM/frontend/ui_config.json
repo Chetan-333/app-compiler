@@ -1,0 +1,72 @@
+[
+    {
+        "page": "Login",
+        "components": [
+            "Login Form",
+            "Logo",
+            "Forgot Password Link"
+        ]
+    },
+    {
+        "page": "Dashboard",
+        "components": [
+            "Sidebar",
+            "Navbar",
+            "Overview Widgets",
+            "Analytics Chart"
+        ]
+    },
+    {
+        "page": "Contact Management",
+        "components": [
+            "Sidebar",
+            "Navbar",
+            "Contact List Table",
+            "Search Bar",
+            "Add Contact Button",
+            "Edit/Delete Contact Actions"
+        ]
+    },
+    {
+        "page": "Subscription Plans",
+        "components": [
+            "Sidebar",
+            "Navbar",
+            "Subscription Plan Cards",
+            "Upgrade/Downgrade Button",
+            "Cancel Subscription Button"
+        ]
+    },
+    {
+        "page": "Payments",
+        "components": [
+            "Sidebar",
+            "Navbar",
+            "Payment Transaction Table",
+            "Search Bar",
+            "Process Payment Button",
+            "Refund Button"
+        ]
+    },
+    {
+        "page": "Analytics Reports",
+        "components": [
+            "Sidebar",
+            "Navbar",
+            "Report Selector",
+            "Data Visualization Charts",
+            "Filter Options",
+            "Export Report Button"
+        ]
+    },
+    {
+        "page": "User Management",
+        "components": [
+            "Sidebar",
+            "Navbar",
+            "User List Table",
+            "Add User Button",
+            "Edit User Roles/Permissions"
+        ]
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "page": "Game",
+        "components": [
+            "Game Grid",
+            "Turn Indicator",
+            "Result Message",
+            "New Game Button"
+        ]
+    }
+]
