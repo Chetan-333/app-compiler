@@ -1,7 +1,10 @@
 import streamlit as st
+import time
+start_time = time.time()
 
 from agents.intent_agent import extract_intent
 from agents.design_agent import generate_design
+from agents.repair_agent import repair_system
 
 from agents.schema_agent import (
     generate_database_schema,
@@ -145,6 +148,15 @@ if demo_mode:
 
 # ---------------- LIVE MODE ----------------
 
+
+assumptions = [
+    "Authentication enabled by default",
+    "REST API architecture assumed",
+    "Role-based access control enabled"
+]
+
+
+
 if generate:
 
     if not user_input.strip():
@@ -157,7 +169,6 @@ if generate:
 
     try:
         with st.spinner("Generating application..."):
-
             intent = extract_intent(user_input)
             design = generate_design(intent)
 
@@ -173,6 +184,32 @@ if generate:
                 auth_schema,
             )
 
+            repair_log = []
+
+            if validation["status"] == "failed":
+                repaired = repair_system(
+                    validation,
+                    intent,
+                    design,
+                    db_schema,
+                    api_schema,
+                    ui_schema,
+                    auth_schema
+                )
+
+                db_schema = repaired["db_schema"]
+                api_schema = repaired["api_schema"]
+                ui_schema = repaired["ui_schema"]
+                auth_schema = repaired["auth_schema"]
+                repair_log = repaired["repair_log"]
+
+                validation = validate_system(
+                    db_schema,
+                    api_schema,
+                    ui_schema,
+                    auth_schema,
+                )
+
             generated = generate_application(
                 intent=intent,
                 app_name=intent.app_name.replace(" ", "_"),
@@ -184,12 +221,22 @@ if generate:
 
         st.success("Application generated successfully!")
 
+        
+        end_time = time.time()
+
+        latency = round(end_time - start_time, 2)
+
         tab1, tab2, tab3, tab4, tab5 = st.tabs(
             ["Intent", "Design", "Schemas", "Validation", "Runtime"]
         )
 
         with tab1:
+            
+            st.subheader("Extracted Intent")
             st.json(intent.model_dump())
+
+            st.subheader("System Assumptions")
+            st.json(assumptions)
 
         with tab2:
             st.json(design.model_dump())
@@ -208,13 +255,29 @@ if generate:
             st.json(auth_schema.model_dump())
 
         with tab4:
+            st.subheader("Validation Result")
             st.json(validation)
+
+            st.subheader("Repair Log")
+            st.json(repair_log)
+
+            if validation["status"] == "success":
+              st.success("Validation passed successfully!")
+            else:
+              st.error("Validation issues detected.")
 
         with tab5:
             st.success(f"Generated app path: {generated['path']}")
             st.code(f"streamlit run {generated['path']}/app.py")
+            st.subheader("Execution Metrics")
 
+            st.json({
+    "latency_seconds": latency,
+    "repair_attempts": len(repair_log),
+    "validation_status": validation["status"]
+})
     except Exception as e:
         st.error("Generation failed. API quota may be exhausted or output validation failed.")
         st.code(str(e))
-        
+
+       

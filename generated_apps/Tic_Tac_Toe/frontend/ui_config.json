@@ -1,10 +1,9 @@
 [
     {
-        "page": "Game",
+        "page": "GameScreen",
         "components": [
-            "Game Grid",
-            "Turn Indicator",
-            "Result Message",
+            "Tic Tac Toe Grid",
+            "Game Status Display",
             "New Game Button"
         ]
     }

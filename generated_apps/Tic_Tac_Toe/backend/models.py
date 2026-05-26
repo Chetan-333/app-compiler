@@ -7,8 +7,7 @@ class Players(Base):
     __tablename__ = 'players'
 
     id = Column(Integer)
-    name = Column(String)
-    created_at = Column(String)
+    username = Column(String)
 
 
 class Games(Base):
@@ -17,9 +16,19 @@ class Games(Base):
     id = Column(Integer)
     player_x_id = Column(Integer)
     player_o_id = Column(Integer)
-    current_player_id = Column(Integer)
-    board_state = Column(String)
+    current_turn_player_id = Column(Integer)
     status = Column(String)
-    started_at = Column(String)
-    finished_at = Column(String)
+    winner_id = Column(Integer)
+    board_state = Column(String)
+
+
+class Moves(Base):
+    __tablename__ = 'moves'
+
+    id = Column(Integer)
+    game_id = Column(Integer)
+    player_id = Column(Integer)
+    position = Column(Integer)
+    symbol = Column(String)
+    move_number = Column(Integer)
 
